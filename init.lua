@@ -55,7 +55,26 @@ require'lspconfig'.zls.setup({
         zls = {
             enable_inlay_hints = true,
             enable_snippets = true,
-            warn_style = true
+            warn_style = true,
+            enable_ast_check_diagnostics = true,
+            enable_build_on_save = true,
+            enable_autofix = true,
+            enable_import_embedfile_argument_completions = true,
+            inlay_hints_show_variable_type_hints = true,
+            inlay_hints_show_parameter_name = true,
+            inlay_hints_show_builtin = true,
+            inlay_hints_exclude_single_argument = true,
+            inlay_hints_hide_redundant_param_names = false,
+            inlay_hints_hide_redundant_param_names_last_token = false,
+            enable_semantic_tokens = "full",
+            operator_completions = true,
+            include_at_in_builtins = false,
+            max_detail_shown = 20,
+            skip_std_references = false,
+            prefer_ast_check_as_child_process = true,
+            highlight_global_var_declarations = false,
+            dangerous_comptime_experiments_do_not_enable = false,
+            completion_label_details = true
         }
     }
 })
