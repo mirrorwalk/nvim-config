@@ -1,10 +1,30 @@
+local colorschemes = {
+    "tokyonight",
+    "cyberdream",
+    "catppuccin"
+}
+
+local current_index = 1
+
+local function switch_colorscheme()
+    current_index = current_index % #colorschemes + 1
+    local next_colorscheme = colorschemes[current_index]
+
+    vim.cmd([[colorscheme ]] .. next_colorscheme)
+
+    vim.notify("Colorscheme switched to: " .. next_colorscheme, vim.log.levels.INFO)
+end
+
+vim.api.nvim_create_user_command('SwitchColorscheme', switch_colorscheme, {})
+
+vim.keymap.set('n', '<leader>ccs', ':SwitchColorscheme<CR>', { noremap = true, silent = true })
+
 return {
     {
         "folke/tokyonight.nvim",
-        lazy = false, -- make sure we load this during startup if it is your main colorscheme
-        priority = 1000, -- make sure to load this before all the other start plugins
+        lazy = false,
+        priority = 1000,
         config = function()
-            -- load the colorscheme here
             require('tokyonight').setup({ transparent = true })
             -- vim.cmd([[colorscheme tokyonight]])
         end,
@@ -14,9 +34,36 @@ return {
         lazy = false,
         priority = 1000,
         config = function()
-            -- load the colorscheme here
-            require('cyberdream').setup({ transparent = true })
+            require('cyberdream').setup({
+                transparent = true,
+                italic_comments = true,
+                hide_fillchars = true,
+                borderless_pickers = true,
+                terminal_colors = true,
+                saturation = 1.2,
+                extensions = {
+                    telescope = true,
+                    cmp = true,
+                    lazy = true,
+                    treesitter = true,
+                    treesittercontext = true,
+                },
+            })
             vim.cmd([[colorscheme cyberdream]])
+        end,
+    },
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000,
+        config = function()
+            require("catppuccin").setup({
+                transparent_background = true,
+                float = {
+                    transparent = true, -- enable transparent floating windows
+                    solid = false,      -- use solid styling for floating windows, see |winborder|
+                },
+            })
         end,
     }
 }
