@@ -15,5 +15,3 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.cmd('cabbrev Wq wq')
-
--- vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
