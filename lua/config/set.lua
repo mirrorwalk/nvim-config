@@ -18,9 +18,17 @@ vim.opt.incsearch = true
 
 vim.opt.scrolloff = 8
 
+vim.opt.signcolumn = "yes"
+
 vim.opt.termguicolors = true
 vim.opt.colorcolumn = "80"
+
+vim.opt.updatetime = 50
 
 vim.o.autoread = true
 
 vim.opt.wrap = false
+
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25
