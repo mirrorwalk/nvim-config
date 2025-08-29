@@ -51,7 +51,7 @@ return {
                     "svelte",
                     "clangd",
                 },
-                automatic_enable = false, -- We'll enable manually after configuring
+                -- automatic_enable = false,
             })
 
             local servers = {
