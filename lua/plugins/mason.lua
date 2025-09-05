@@ -154,6 +154,15 @@ return {
                 ts_ls = {},
                 svelte = {},
                 clangd = {},
+                nil_ls = {
+                    settings = {
+                        ["nil"] = {
+                            formatting = {
+                                command = { "alejandra"},
+                            },
+                        },
+                    },
+                },
             }
 
             local shared_opts = {
