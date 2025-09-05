@@ -14,46 +14,20 @@ return {
         local cmp = require("cmp")
         local luasnip = require("luasnip")
         local defaults = require("cmp.config.default")()
-        local auto_select = true
+        local cmp_select = { behavior = cmp.SelectBehavior.Select }
+
         return {
-            auto_brackets = {}, -- configure any filetype to auto add brackets
             snippet = {
                 expand = function(args)
                     luasnip.lsp_expand(args.body)
                 end,
             },
-            completion = {
-                completeopt = "menu,menuone,noinsert" .. (auto_select and "" or ",noselect"),
-            },
-            preselect = auto_select and cmp.PreselectMode.Item or cmp.PreselectMode.None,
             mapping = cmp.mapping.preset.insert({
-                ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-                ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-                ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+                ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+                ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+                ['<C-y>'] = cmp.mapping.confirm({ select = true }),
                 ["<C-Space>"] = cmp.mapping.complete(),
-                ["<C-CR>"] = function(fallback)
-                    cmp.abort()
-                    fallback()
-                end,
-                ["<Tab>"] = cmp.mapping(function(fallback)
-                    if luasnip.expand_or_jumpable() then
-                        luasnip.expand_or_jump()
-                    elseif cmp.visible() then
-                        fallback()
-                    else
-                        fallback()
-                    end
-                end, { "i", "s" }),
-                ["<S-Tab>"] = cmp.mapping(function(fallback)
-                    if luasnip.jumpable(-1) then
-                        luasnip.jump(-1)
-                    elseif cmp.visible() then
-                        fallback()
-                    else
-                        fallback()
-                    end
-                end, { "i", "s" }),
+
             }),
             sources = cmp.config.sources({
                 { name = "nvim_lsp" },
