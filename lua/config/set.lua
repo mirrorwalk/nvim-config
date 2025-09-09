@@ -31,3 +31,5 @@ vim.opt.wrap = false
 
 vim.g.netrw_browse_split = 0
 vim.g.netrw_winsize = 25
+
+vim.opt.inccommand = "split"
