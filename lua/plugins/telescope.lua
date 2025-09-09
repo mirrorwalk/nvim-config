@@ -12,6 +12,7 @@ return {
         vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<CR>', {})
         vim.keymap.set('n', '<leader>fz', builtin.current_buffer_fuzzy_find)
         vim.keymap.set("n", "<space>fh", builtin.help_tags)
+        vim.keymap.set('n', '<leader>ps', require "plugins.telescope.multigrep")
 
 
         require('telescope').setup {
