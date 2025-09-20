@@ -14,18 +14,18 @@ return {
         },
         config = function()
             local capabilities = require('blink.cmp').get_lsp_capabilities()
-            -- require("lspconfig").lua_ls.setup { capabilites = capabilities }
-            -- require("lspconfig").zls.setup { capabilites = capabilities }
-            -- require("lspconfig").gdscript.setup { capabilites = capabilities }
-
-            -- local servers = { 'lua_ls', 'zls', 'gdscript' }
-            --
-            -- for _, server in ipairs(servers) do
-            --     vim.lsp.config(server, { capabilities = capabilities })
-            --     vim.lsp.enable(server)
-            -- end
 
             vim.lsp.config('*', { capabilities = capabilities })
+
+            vim.lsp.config('nil_ls', {
+                settings = {
+                    ['nil'] = {
+                        formatting = {
+                            command = { 'alejandra', '-q' },
+                        },
+                    },
+                },
+            })
 
             vim.api.nvim_create_autocmd('LspAttach', {
                 callback = function(args)
