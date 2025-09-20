@@ -10,7 +10,9 @@ return {
     lazy = false,
     config = function()
         require("oil").setup({
-
+            keymaps = {
+                ["<C-h>"] = false,
+            },
         })
         vim.keymap.set("n", "-", "<CMD>Oil<CR>")
     end
