@@ -7,3 +7,5 @@ vim.keymap.set("n", ",st", function()
 end)
 
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
+
+require("custom.floatterminal")
