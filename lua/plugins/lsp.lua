@@ -18,6 +18,7 @@ return {
             vim.lsp.config('*', { capabilities = capabilities })
 
             vim.lsp.config('nil_ls', {
+                capabilities = capabilities,
                 settings = {
                     ['nil'] = {
                         formatting = {
@@ -26,8 +27,6 @@ return {
                     },
                 },
             })
-
-            vim.lsp.enable('nil_ls')
 
             vim.api.nvim_create_autocmd('LspAttach', {
                 callback = function(args)
