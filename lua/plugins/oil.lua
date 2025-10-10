@@ -12,6 +12,7 @@ return {
         require("oil").setup({
             keymaps = {
                 ["<C-h>"] = false,
+                ["<C-t>"] = false,
             },
         })
         vim.keymap.set("n", "-", "<CMD>Oil<CR>")

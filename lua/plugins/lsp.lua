@@ -28,6 +28,22 @@ return {
                 },
             })
 
+            vim.lsp.config('zls', {
+                settings = {
+                    ['zls'] = {
+                        enable_snippets = true,
+                        enable_ast_check_diagnostics = true,
+                        enable_autofix = true,
+                        enable_import_embedfile_argument_completions = true,
+                        warn_style = true,
+                        highlight_global_var_declarations = true,
+                        dangerous_comptime_experiments_do_not_enable = false,
+                        skip_std_references = false,
+                        prefer_ast_check_as_child_process = true,
+                    },
+                },
+            })
+
             vim.api.nvim_create_autocmd('LspAttach', {
                 callback = function(args)
                     local c = vim.lsp.get_client_by_id(args.data.client_id)
