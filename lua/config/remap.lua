@@ -15,3 +15,4 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.cmd('cabbrev Wq wq')
+vim.cmd('cabbrev W w')
