@@ -17,16 +17,37 @@ return {
 
             vim.lsp.config('*', { capabilities = capabilities })
 
-            vim.lsp.config('nil_ls', {
+            -- vim.lsp.config('nil_ls', {
+            --     capabilities = capabilities,
+            --     settings = {
+            --         ['nil'] = {
+            --             formatting = {
+            --                 command = { 'alejandra', '-q' },
+            --             },
+            --         },
+            --     },
+            -- })
+
+            vim.lsp.config('nixd', {
                 capabilities = capabilities,
                 settings = {
-                    ['nil'] = {
+                    ['nixd'] = {
                         formatting = {
                             command = { 'alejandra', '-q' },
+                        },
+                        nixpkgs = {
+                            expr = "import <nixpkgs> { }",
+                                -- expr =  "import (builtins.getFlake \"github:nixos/nixpkgs/nixos-unstable\").inputs.nixpkgs { }   "
+                        },
+                        options = {
+                                home_manager =  {
+                                    expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.zentop.options.home-manager.users.type.getSubOptions []"
+                                },
                         },
                     },
                 },
             })
+            vim.lsp.enable('nixd')
 
             vim.lsp.config('zls', {
                 settings = {
