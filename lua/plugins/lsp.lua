@@ -37,12 +37,13 @@ return {
                         },
                         nixpkgs = {
                             expr = "import <nixpkgs> { }",
-                                -- expr =  "import (builtins.getFlake \"github:nixos/nixpkgs/nixos-unstable\").inputs.nixpkgs { }   "
+                            -- expr =  "import (builtins.getFlake \"github:nixos/nixpkgs/nixos-unstable\").inputs.nixpkgs { }   "
                         },
                         options = {
-                                home_manager =  {
-                                    expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.zentop.options.home-manager.users.type.getSubOptions []"
-                                },
+                            home_manager = {
+                                expr =
+                                "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.desktop.options.home-manager.users.type.getSubOptions []"
+                            },
                         },
                     },
                 },
