@@ -37,12 +37,13 @@ return {
                         },
                         nixpkgs = {
                             expr = "import <nixpkgs> { }",
-                            -- expr =  "import (builtins.getFlake \"github:nixos/nixpkgs/nixos-unstable\").inputs.nixpkgs { }   "
                         },
                         options = {
                             home_manager = {
-                                expr =
-                                "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.desktop.options.home-manager.users.type.getSubOptions []"
+                                expr = string.format(
+                                    "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.%s.options.home-manager.users.type.getSubOptions []",
+                                    vim.uv.os_gethostname()
+                                )
                             },
                         },
                     },
