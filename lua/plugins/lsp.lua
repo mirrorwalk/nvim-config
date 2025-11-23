@@ -11,19 +11,50 @@ return {
                     },
                 },
             },
+            {
+                'stevearc/conform.nvim',
+                opts = {},
+            },
+            {
+                "mason-org/mason-lspconfig.nvim",
+                opts = {},
+                dependencies = {
+                    { "mason-org/mason.nvim", opts = {} },
+                    "neovim/nvim-lspconfig",
+                },
+            },
         },
         config = function()
             local capabilities = require('blink.cmp').get_lsp_capabilities()
+            local conform = require("conform")
+
+            conform.setup({
+                formatters_by_ft = {
+                    nix = { "alejandra", "injected" },
+                },
+            })
+
+            require("mason").setup()
+            local mason_registry = require("mason-registry")
+            if not mason_registry.is_installed("shfmt") then
+                mason_registry.get_package("shfmt"):install()
+            end
+            require("mason-lspconfig").setup({
+                ensure_installed = {
+                    "lua_ls",
+                    "bashls"
+                }
+            })
+
 
             vim.lsp.config('*', { capabilities = capabilities })
+
+            local flake_path = vim.fn.expand("~/.config/nixos")
 
             vim.lsp.config('nixd', {
                 capabilities = capabilities,
                 settings = {
                     ['nixd'] = {
-                        -- formatting = {
-                        --     command = { 'alejandra', '-q' },
-                        -- },
                         nixpkgs = {
                             expr = "import <nixpkgs> { }",
                         },
@@ -31,6 +62,12 @@ return {
                             home_manager = {
                                 expr = string.format(
                                     "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.%s.options.home-manager.users.type.getSubOptions []",
+                                    vim.uv.os_gethostname()
+                                )
+                            },
+                            nixos = {
+                                expr = string.format(
+                                    "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.%s.options",
                                     vim.uv.os_gethostname()
                                 )
                             },
@@ -77,9 +114,18 @@ return {
                     end
                     vim.keymap.set("n", "<M-d>", vim.diagnostic.setqflist)
                     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
-                    -- vim.keymap.set("n", "<leader>ff", vim.lsp.buf.format)
                     vim.keymap.set("n", "gD", vim.lsp.buf.declaration)
                     vim.keymap.set("n", "gt", vim.lsp.buf.type_definition)
+                    vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+                    vim.keymap.set("n", "<leader>ff", vim.lsp.buf.format)
+                    -- vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol)
+                    vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float)
+                    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
+                    vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = 1, float = true }) end)
+                    vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = -1, float = true }) end)
+                    vim.keymap.set("n", "<leader>ff", function()
+                        conform.format({ async = true, lsp_fallback = true })
+                    end)
                 end,
             })
 

@@ -11,8 +11,8 @@ return {
             },
         })
 
-        vim.keymap.set("n", "<leader>ff", function()
-            conform.format({ async = true, lsp_fallback = true })
-        end)
+        -- vim.keymap.set("n", "<leader>ff", function()
+        --     conform.format({ async = true, lsp_fallback = true })
+        -- end)
     end,
 }
