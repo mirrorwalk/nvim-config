@@ -17,24 +17,13 @@ return {
 
             vim.lsp.config('*', { capabilities = capabilities })
 
-            -- vim.lsp.config('nil_ls', {
-            --     capabilities = capabilities,
-            --     settings = {
-            --         ['nil'] = {
-            --             formatting = {
-            --                 command = { 'alejandra', '-q' },
-            --             },
-            --         },
-            --     },
-            -- })
-
             vim.lsp.config('nixd', {
                 capabilities = capabilities,
                 settings = {
                     ['nixd'] = {
-                        formatting = {
-                            command = { 'alejandra', '-q' },
-                        },
+                        -- formatting = {
+                        --     command = { 'alejandra', '-q' },
+                        -- },
                         nixpkgs = {
                             expr = "import <nixpkgs> { }",
                         },
@@ -50,6 +39,11 @@ return {
                 },
             })
             vim.lsp.enable('nixd')
+
+            vim.lsp.config('gdscript', {
+                capabilities = capabilities,
+            })
+            vim.lsp.enable('gdscript')
 
             vim.lsp.config('zls', {
                 settings = {
@@ -83,7 +77,7 @@ return {
                     end
                     vim.keymap.set("n", "<M-d>", vim.diagnostic.setqflist)
                     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
-                    vim.keymap.set("n", "<leader>ff", vim.lsp.buf.format)
+                    -- vim.keymap.set("n", "<leader>ff", vim.lsp.buf.format)
                     vim.keymap.set("n", "gD", vim.lsp.buf.declaration)
                     vim.keymap.set("n", "gt", vim.lsp.buf.type_definition)
                 end,
