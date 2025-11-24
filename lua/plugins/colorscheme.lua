@@ -1,7 +1,8 @@
 local colorschemes = {
     "tokyonight",
     "cyberdream",
-    "catppuccin"
+    "catppuccin",
+    "aura-dark",
 }
 
 local current_index = 1
@@ -49,7 +50,7 @@ return {
                     treesittercontext = true,
                 },
             })
-            vim.cmd([[colorscheme cyberdream]])
+            -- vim.cmd([[colorscheme cyberdream]])
         end,
     },
     {
@@ -65,5 +66,14 @@ return {
                 },
             })
         end,
+    },
+    {
+        "baliestri/aura-theme",
+        lazy = false,
+        priority = 1000,
+        config = function(plugin)
+            vim.opt.rtp:append(plugin.dir .. "/packages/neovim")
+            vim.cmd([[colorscheme aura-dark]])
+        end
     }
 }
