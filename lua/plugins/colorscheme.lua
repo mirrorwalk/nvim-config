@@ -2,7 +2,6 @@ local colorschemes = {
     "tokyonight",
     "cyberdream",
     "catppuccin",
-    "aura-dark",
 }
 
 local current_index = 1
@@ -27,7 +26,7 @@ return {
         priority = 1000,
         config = function()
             require('tokyonight').setup({ transparent = true })
-            -- vim.cmd([[colorscheme tokyonight]])
+            vim.cmd([[colorscheme tokyonight]])
         end,
     },
     {
@@ -67,13 +66,4 @@ return {
             })
         end,
     },
-    {
-        "baliestri/aura-theme",
-        lazy = false,
-        priority = 1000,
-        config = function(plugin)
-            vim.opt.rtp:append(plugin.dir .. "/packages/neovim")
-            vim.cmd([[colorscheme aura-dark]])
-        end
-    }
 }
